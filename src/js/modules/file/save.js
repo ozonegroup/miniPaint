@@ -6,6 +6,7 @@ import alertify from './../../../../node_modules/alertifyjs/build/alertify.min.j
 import canvasToBlob from './../../../../node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.min.js';
 import filesaver from './../../../../node_modules/file-saver/FileSaver.min.js';
 import GIF from './../../libs/gifjs/gif.js';
+import axios from './../../../../node_modules/axios-jsonp-pro/dist/axios.min.js';
 
 var instance = null;
 
@@ -318,6 +319,7 @@ class File_save_class {
 	 * @param {boolean} autoname if use name from layer, false by default
 	 */
 	save_action(user_response, autoname) {
+		
 		var fname = user_response.name;
 		if(autoname === true && user_response.layers == 'Selected'){
 			fname = config.layer.name;
@@ -511,6 +513,7 @@ class File_save_class {
 	 * exports all layers to JSON
 	 */
 	export_as_json() {
+		
 		var export_data = {};
 
 		//get date
@@ -574,6 +577,22 @@ class File_save_class {
 			canvas.width = 1;
 			canvas.height = 1;
 		}
+	   
+	   console.log("Sending json to app");
+	   axios.jsonp('http://vuefileupload.test/hello', {
+	       timeout: 1000,
+	       params: {
+	         ID: 12345,
+			 odata: export_data
+	       }
+	     })
+	     .then(function (response) {
+			 console.log("success axios");
+	       	 console.log(response);
+	     })
+	     .catch(function (error) {
+	       console.log(error);
+	     });
 
 		return JSON.stringify(export_data, null, "\t");
 	}
