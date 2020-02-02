@@ -6,7 +6,8 @@ import alertify from './../../../../node_modules/alertifyjs/build/alertify.min.j
 import canvasToBlob from './../../../../node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.min.js';
 import filesaver from './../../../../node_modules/file-saver/FileSaver.min.js';
 import GIF from './../../libs/gifjs/gif.js';
-import axios from './../../../../node_modules/axios-jsonp-pro/dist/axios.min.js';
+//import axios from './../../../../node_modules/axios-jsonp-pro/dist/axios.min.js';
+import axios from './../../../../node_modules/axios/dist/axios.min.js';
 
 var instance = null;
 
@@ -32,6 +33,7 @@ class File_save_class {
 
 		//save types config
 		this.SAVE_TYPES = [
+			"STUDIO - Save To My Designs",
 			"PNG - Portable Network Graphics",
 			"JPG - JPG/JPEG Format",
 			"JSON - Full layers data", //aka PSD
@@ -59,7 +61,9 @@ class File_save_class {
 
 	save() {
 		var _this = this;
-
+		console.log("click en Save As");
+		
+		
 		//find default format
 		var save_default = this.SAVE_TYPES[0];	//png
 		if (this.Helper.getCookie('save_default') == 'jpg')
@@ -113,6 +117,12 @@ class File_save_class {
 		this.POP.show(settings);
 
 		document.getElementById("pop_data_name").select();
+		
+		document.getElementById('popup-tr-quality').style.display = 'none';
+		document.getElementById('popup-tr-delay').style.display = 'none';
+		document.getElementById('popup-tr-layers').style.display = 'none';
+		document.getElementById('popup-tr-calc_size').style.display = 'none';
+		document.getElementById('popup-tr-undefined').style.display = 'none';
 
 		if (calc_size == true) {
 			//calc size once
@@ -184,14 +194,20 @@ class File_save_class {
 
 		//detect type
 		var type = user_response.type;
+		console.log(type);
 		var parts = type.split(" ");
 		type = parts[0];
-
-		if (type == 'JPG' || type == 'WEBP')
+		console.log(type);
+		
+		
+		
+		if (type == 'JPG' || type == 'WEBP'){
+			console.log("JPG dialog");
 			document.getElementById('popup-tr-quality').style.display = '';
-		else
+		}else{
 			document.getElementById('popup-tr-quality').style.display = 'none';
-
+		}
+	
 		if (type == 'GIF')
 			document.getElementById('popup-tr-delay').style.display = '';
 		else
@@ -206,12 +222,21 @@ class File_save_class {
 			document.getElementById('pop_data_name').disabled = true;
 		else
 			document.getElementById('pop_data_name').disabled = false;
+		
+		if (type == 'STUDIO'){
+			console.log("Studio dialog");
+			document.getElementById('popup-tr-quality').style.display = 'none';
+			document.getElementById('popup-tr-delay').style.display = 'none';
+			document.getElementById('popup-tr-layers').style.display = 'none';
+			document.getElementById('popup-tr-calc_size').style.display = 'none';
+			document.getElementById('popup-tr-undefined').style.display = 'none';
+		}
 
 		if (user_response.calc_size == false || user_response.layers == 'Separated') {
 			document.getElementById('file_size').innerHTML = '-';
 			return;
 		}
-
+		
 		if (type != 'JSON' && type != 'GIF') {
 			//create temp canvas
 			var canvas = document.createElement('canvas');
@@ -407,10 +432,32 @@ class File_save_class {
 			//jpg
 			if (this.Helper.strpos(fname, '.jpg') == false)
 				fname = fname + ".jpg";
-
+			
 			canvas.toBlob(function (blob) {
 				filesaver.saveAs(blob, fname);
 			}, "image/jpeg", quality);
+			
+			
+			//console.log("guardar JPG")
+		}
+		else if (type == 'STUDIO') {
+			console.log("Sending to My Designs");
+			
+			var image = new Image();
+			image.src = canvas.toDataURL("image/png");		
+			var url_params = this.Helper.get_url_parameters();	
+			var json_file = this.export_as_json();
+			
+ 	 	   axios({
+ 	 	     method: 'post',
+ 	 	     url: 'http://storageapp.test/save_to_my_designs',
+ 	 	     data: {
+ 	 	       user_id: url_params.user_id,
+			   thumbnail_file: image.src,
+			   json_file: json_file,
+ 	 	     }
+ 	 	   });
+			
 		}
 		else if (type == 'WEBP') {
 			//WEBP - new format for chrome only
@@ -578,22 +625,6 @@ class File_save_class {
 			canvas.height = 1;
 		}
 	   
-	   console.log("Sending json to app");
-	   axios.jsonp('http://vuefileupload.test/hello', {
-	       timeout: 1000,
-	       params: {
-	         ID: 12345,
-			 odata: export_data
-	       }
-	     })
-	     .then(function (response) {
-			 console.log("success axios");
-	       	 console.log(response);
-	     })
-	     .catch(function (error) {
-	       console.log(error);
-	     });
-
 		return JSON.stringify(export_data, null, "\t");
 	}
 	

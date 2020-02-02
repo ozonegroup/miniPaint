@@ -11,6 +11,19 @@ module.exports = {
 		filename: 'bundle.js',
 		publicPath: '/dist/'
 	},
+	devServer: {
+		headers: {
+		    "Access-Control-Allow-Origin": "*",
+		    "Access-Control-Request-Method": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+		    "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+		  },
+		  allowedHosts: [
+		        'studio_data_storage.test',
+		        'subdomain.host.com',
+		        'subdomain2.host.com',
+		        'host2.com'
+		      ]
+	  },
 	resolve: {
 		extensions: ['.js', '.css'],
 		alias: {
@@ -51,9 +64,5 @@ module.exports = {
 			VERSION: JSON.stringify(require("./package.json").version)
 		}),
 	],
-	devtool: "cheap-module-source-map",
-	devServer: {
-		contentBase: "./",
-		compress: true,
-	}
+	devtool: "cheap-module-source-map"
 };
