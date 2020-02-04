@@ -4,7 +4,7 @@ var menu_template = `
 			<a class="trn" href="#">File</a>
 			<ul>
 				<li><a class="trn" data-target="file/new.new" href="#">New</a></li>
-				<li><a class="trn dots" data-target="file/search.search" href="#">My designs</a></li>
+				<li><a class="trn dots" data-target="file/designs.my_designs" href="#">My designs</a></li>
 				<li><div class="mid-line"></div></li>
 				<li class="more">
 					<a class="trn" href="#">Open</a>

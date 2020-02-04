@@ -2,11 +2,12 @@ import config from './../../config.js';
 import File_open_class from './open.js';
 import Dialog_class from './../../libs/popup.js';
 import alertify from './../../../../node_modules/alertifyjs/build/alertify.min.js';
-
+import axios from './../../../../node_modules/axios/dist/axios.min.js';
+import Helper_class from './../../libs/helpers.js';
 /** 
  * manages image search on https://pixabay.com/en/service/about/api/
  */
-class File_search_media_class {
+class File_designs_media_class {
 
 	constructor() {
 		this.File_open = new File_open_class();
@@ -20,10 +21,11 @@ class File_search_media_class {
 	 * @param {string} query
 	 * @param {array} data
 	 */
-	search(query = '', data = []) {
+	my_designs(query = '', data = []) {
 		var _this = this;
 		var html = '';
-
+		console.log("hola desde my_designs");
+		
 		var key = config.pixabay_key;
 		key = key.split("").reverse().join("");
 
@@ -41,13 +43,14 @@ class File_search_media_class {
 		}
 
 		var settings = {
-			title: 'Search',
-			comment: 'Source: <a class="grey" href="https://pixabay.com7/">pixabay.com7</a>.',
+			title: 'My Designs',
+			comment: '',
 			className: 'wide',
 			params: [
-				{name: "query", title: "Keyword:", value: query},
+				
 			],
 			on_load: function (params) {
+				console.log("entro en primera");
 				var node = document.createElement("div");
 				node.classList.add('flex-container');
 				node.innerHTML = html;
@@ -65,6 +68,55 @@ class File_search_media_class {
 						_this.File_open.file_open_url_handler(data);
 					});
 				}
+				
+				var url_params = {};
+				location.search.substr(1).split("&").forEach(
+					function (item) {
+						url_params[item.split("=")[0]] = item.split("=")[1];
+					}
+				);
+				
+				$.ajax({
+					url: 'http://storageapp.test/my_designs',
+					dataType: 'JSON',
+					type: 'GET',
+					data: {user_id: url_params.user_id},
+					success : function(data) {
+						var base_url = data["base_url"];
+						var designs = data["designs"];
+						var html ="";
+						for (var item in designs) {
+							//console.log(designs[item].thumbnail_file);
+							html+='<div class="item pointer">';
+							html+='<img width="100" class="displayBlock" alt="" src="'+base_url+'/'+url_params.user_id+'/'+designs[item].thumbnail_file+'" json-url="'+base_url+'/'+url_params.user_id+'/'+designs[item].json_file+'">';
+							html+='</div>';
+						}
+						$(".flex-container").html(html);
+					}		
+				});	
+				
+				/*
+				axios.get('http://storageapp.test/my_designs', {
+				    params: {
+				      user_id: url_params.user_id
+				    }
+				  })
+				  .then(function (response) {
+				    console.log(response);
+					data = response["data"];
+					designs = data["designs"];
+					for (var item in designs) {
+						console.log(designs[item].thumbnail_file);
+					}
+				  })
+				  .catch(function (error) {
+				    console.log(error);
+				  })
+				  .then(function () {
+				    // always executed
+				  });  
+				*/
+				
 			},
 			on_finish: function (params) {
 				if (params.query == '')
@@ -83,7 +135,9 @@ class File_search_media_class {
 					}, 100);
 				}
 				else {
+					
 					//query to service
+					/*
 					var URL = "https://pixabay.com/api/?key=" + key + "&per_page=50&q=" + encodeURIComponent(params.query);
 					$.getJSON(URL, function (data) {
 						_this.cache[params.query] = data;
@@ -96,6 +150,7 @@ class File_search_media_class {
 						.fail(function () {
 							alertify.error('Error connecting to service.');
 						});
+					*/
 				}
 			},
 		};
@@ -104,5 +159,5 @@ class File_search_media_class {
 
 }
 
-export default File_search_media_class;
+export default File_designs_media_class;
 

@@ -70,6 +70,9 @@ class Base_gui_class {
 			if (key.indexOf('Base' + '/') < 0) {
 				var moduleKey = key.replace('./', '').replace('.js', '');
 				var classObj = modules_context(key);
+				//console.log("classObj");
+				//console.log(classObj);
+				//console.log(moduleKey);
 				_this.modules[moduleKey] = new classObj.default();
 			}
 		});
@@ -119,6 +122,7 @@ class Base_gui_class {
 	}
 
 	set_events() {
+		console.log("entro set_events!")
 		var _this = this;
 		//menu events
 		var targets = document.querySelectorAll('#main_menu a');
@@ -130,19 +134,27 @@ class Base_gui_class {
 				var module = parts[0];
 				var function_name = parts[1];
 				var param = parts[2];
-
-				//close menu
+				
+				/*DEBUG LOGIC
+				console.log("function_name:");
+				console.log(function_name);
+				console.log("module:");
+				console.log(module);
+				console.log(_this.modules[module]);
+				*/
+				
 				var menu = document.querySelector('#main_menu .selected');
 				if (menu != undefined) {
 					menu.click();
 				}
 
-				//call module
 				if (_this.modules[module] == undefined) {
+					console.log("entro error!")
 					alertify.error('Modules class not found: ' + module);
 					return;
 				}
 				if (_this.modules[module][function_name] == undefined) {
+					
 					alertify.error('Module function not found. ' + module + '.' + function_name);
 					return;
 				}
