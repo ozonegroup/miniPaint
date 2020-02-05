@@ -11,19 +11,6 @@ module.exports = {
 		filename: 'bundle.js',
 		publicPath: '/dist/'
 	},
-	devServer: {
-		headers: {
-		    "Access-Control-Allow-Origin": "*",
-		    "Access-Control-Request-Method": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-		    "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
-		  },
-		  allowedHosts: [
-		        'ozonegroup.co',
-		        'websitebar.co',
-		        'ozonegroup.test',
-		        'websitebar.test'
-		      ]
-	  },
 	resolve: {
 		extensions: ['.js', '.css'],
 		alias: {
@@ -64,5 +51,9 @@ module.exports = {
 			VERSION: JSON.stringify(require("./package.json").version)
 		}),
 	],
-	devtool: "cheap-module-source-map"
+	devtool: "cheap-module-source-map",
+	devServer: {
+		contentBase: "./",
+		compress: true,
+	}
 };
