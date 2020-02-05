@@ -75,4 +75,8 @@ Para esto se utiliza le metodo set_events() en el archivo src/js/core/base-gui.j
 El metodo de inicializacion es el ultimo /file/{archivo_de_clase}/{metodo_de_inicio}
 {metodo_de_inicio} se necuentra dentro de la clase.
 
+#Deploy
+Para hacer depploy utlizamos este script /hardening/studio.sh
+
+
 

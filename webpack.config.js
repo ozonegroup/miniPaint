@@ -18,10 +18,10 @@ module.exports = {
 		    "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
 		  },
 		  allowedHosts: [
-		        'studio_data_storage.test',
-		        'subdomain.host.com',
-		        'subdomain2.host.com',
-		        'host2.com'
+		        'ozonegroup.co',
+		        'websitebar.co',
+		        'ozonegroup.test',
+		        'websitebar.test'
 		      ]
 	  },
 	resolve: {
