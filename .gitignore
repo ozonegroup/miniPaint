@@ -12,5 +12,5 @@ nbproject/
 .vscode
 /.project
 *.log
-
+.env
 /node_modules/

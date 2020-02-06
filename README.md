@@ -51,7 +51,8 @@ MIT License
 ## Support
 Please use the GitHub issues for support, features, issues or use mail www.viliusl@gmail.com for contacts.
 
-#Entendiendo
+#Entendiendo My Designs
+Logica para mostrar My Designs
 La manera como carga los modulos en el menu es compleja y expresa la siguiente simetria que ha sido descifrada.
 
 1. DECLARACION DEL HTML SEGUN SIMETRIA IDENTIFICADA
@@ -75,6 +76,9 @@ Para esto se utiliza le metodo set_events() en el archivo src/js/core/base-gui.j
 El metodo de inicializacion es el ultimo /file/{archivo_de_clase}/{metodo_de_inicio}
 {metodo_de_inicio} se necuentra dentro de la clase.
 
+#Entendiendo Save as Studio
+
+
 #VAriables de Sistema
 Archivo: /.env
 DB_HOST=127.0.0.1
@@ -85,6 +89,31 @@ STORAGE_APP_URL=http://storageapp.test
 
 #Deploy
 Para hacer depploy utlizamos este script /hardening/studio.sh
+git clone https://github.com/viliusle/miniPaint.git
+
+cd miniPaint
+npm install - it will install all dependencies from package.json file into node_module folder
+There are 2 ways to edit files:
+Run npm run server - it will create simple local server (webpack-dev-server) with live reload. Run command, edit files and debug using http://localhost:8080/ URL. Recommended way.
+Edit files and run npm run dev command to generate/update dist/bundle.js
+To generate minified code for production, run npm run build. Code is build using webpack.
+
+#Storage APP Integration
+En el servidor VPS donde este instalada la App de storage se debe activar el modulo de apache mod_headers.c de la siguiente manera para Ubuntu:
+
+a2enmod headers
+systemctl restart apache2
+
+Agregar esto al archivo .conf
+
+<IfModule mod_headers.c>
+        Header Set Access-Control-Allow-Origin "*"
+        Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+        Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+</IfModule>
+
+
+
 
 
 

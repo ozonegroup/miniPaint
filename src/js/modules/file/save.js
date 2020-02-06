@@ -447,10 +447,11 @@ class File_save_class {
 			image.src = canvas.toDataURL("image/png");		
 			var url_params = this.Helper.get_url_parameters();	
 			var json_file = this.export_as_json();
-			
+			console.log("sending to:");
+			console.log(process.env.STORAGE_APP_URL);
  	 	   axios({
  	 	     method: 'post',
- 	 	     url: 'http://storageapp.test/save_to_my_designs',
+ 	 	     url: process.env.STORAGE_APP_URL+'/save_to_my_designs',
  	 	     data: {
  	 	       user_id: url_params.user_id,
 			   thumbnail_file: image.src,
