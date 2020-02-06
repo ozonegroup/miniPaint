@@ -77,6 +77,10 @@ El metodo de inicializacion es el ultimo /file/{archivo_de_clase}/{metodo_de_ini
 {metodo_de_inicio} se necuentra dentro de la clase.
 
 #Entendiendo Save as Studio
+Estamos usando la siguiente logica de Laravel 
+https://laravel.com/docs/5.8/filesystem
+
+php artisan storage:link
 
 
 #VAriables de Sistema

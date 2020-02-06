@@ -91,7 +91,7 @@ class File_designs_media_class {
 						for (var item in designs) {
 							//console.log(designs[item].thumbnail_file);
 							html+='<div class="item pointer">';
-							html+='<img width="200" class="displayBlock" alt="" src="'+base_url+'/'+url_params.user_id+'/'+designs[item].thumbnail_file+'" json-url="'+base_url+'/'+url_params.user_id+'/'+designs[item].json_file+'">';
+							html+='<img width="200" class="displayBlock" alt="" src="'+process.env.STORAGE_APP_URL+'/'+url_params.user_id+'/'+designs[item].thumbnail_file+'" json-url="'+base_url+'/'+url_params.user_id+'/'+designs[item].json_file+'">';
 							html+='</div>';
 						}
 						$(".flex-container").html(html);
