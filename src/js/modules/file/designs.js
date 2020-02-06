@@ -78,7 +78,7 @@ class File_designs_media_class {
 				
 				console.log("testing variables");
 				console.log(process.env.STORAGE_APP_URL);
-				var base_url = process.env.STORAGE_APP_URL+'/storage/';
+				var base_url = process.env.STORAGE_APP_URL+'/storage/templates/';
 				
 				$.ajax({
 					url: process.env.STORAGE_APP_URL+'/my_designs',
@@ -92,7 +92,7 @@ class File_designs_media_class {
 						for (var item in designs) {
 							//console.log(designs[item].thumbnail_file);
 							html+='<div class="item pointer">';
-							html+='<img class="template" width="200" class="displayBlock" alt="" src="'+base_url+url_params.user_id+'/'+designs[item].thumbnail_file+'" json-url="'+base_url+url_params.user_id+'/'+designs[item].json_file+'">';
+							html+='<img class="template" width="150" class="displayBlock" alt="" src="'+base_url+url_params.user_id+'/'+designs[item].thumbnail_file+'" json-url="'+base_url+url_params.user_id+'/'+designs[item].json_file+'">';
 							html+='</div>';
 						}
 						$(".flex-container").html(html);
