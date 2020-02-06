@@ -78,6 +78,7 @@ class File_designs_media_class {
 				
 				console.log("testing variables");
 				console.log(process.env.STORAGE_APP_URL);
+				var base_url = process.env.STORAGE_APP_URL+'/storage/';
 				
 				$.ajax({
 					url: process.env.STORAGE_APP_URL+'/my_designs',
@@ -85,16 +86,23 @@ class File_designs_media_class {
 					type: 'GET',
 					data: {user_id: url_params.user_id},
 					success : function(data) {
-						var base_url = data["base_url"];
+						
 						var designs = data["designs"];
 						var html ="";
 						for (var item in designs) {
 							//console.log(designs[item].thumbnail_file);
 							html+='<div class="item pointer">';
-							html+='<img width="200" class="displayBlock" alt="" src="'+process.env.STORAGE_APP_URL+'/storage/'+url_params.user_id+'/'+designs[item].thumbnail_file+'" json-url="'+base_url+'/'+url_params.user_id+'/'+designs[item].json_file+'">';
+							html+='<img class="template" width="200" class="displayBlock" alt="" src="'+base_url+url_params.user_id+'/'+designs[item].thumbnail_file+'" json-url="'+base_url+url_params.user_id+'/'+designs[item].json_file+'">';
 							html+='</div>';
 						}
 						$(".flex-container").html(html);
+						
+						$(".template").click(function() {
+						  //alert( "Handler for .click() called." );
+						 // alert($(this).attr("json-url"));
+						  var relocate_url = "?image="+$(this).attr("json-url")+"&user_id="+url_params.user_id;
+						  window.location.href="/"+relocate_url;
+						});
 					}		
 				});	
 				
