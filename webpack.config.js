@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
 	entry: [
@@ -42,6 +43,10 @@ module.exports = {
 		]
 	},
 	plugins: [
+		new Dotenv({
+		  path: './.env', // Path to .env file (this is the default)
+		  safe: true // load .env.example (defaults to "false" which does not use dotenv-safe)
+		}),
 		new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
@@ -50,6 +55,7 @@ module.exports = {
 		new webpack.DefinePlugin({
 			VERSION: JSON.stringify(require("./package.json").version)
 		}),
+		
 	],
 	devtool: "cheap-module-source-map",
 	devServer: {

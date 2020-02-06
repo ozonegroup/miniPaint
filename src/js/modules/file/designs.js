@@ -76,8 +76,11 @@ class File_designs_media_class {
 					}
 				);
 				
+				console.log("testing variables");
+				console.log(process.env.STORAGE_APP_URL);
+				
 				$.ajax({
-					url: 'http://storageapp.test/my_designs',
+					url: process.env.STORAGE_APP_URL+'/my_designs',
 					dataType: 'JSON',
 					type: 'GET',
 					data: {user_id: url_params.user_id},
