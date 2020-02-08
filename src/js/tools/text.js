@@ -267,8 +267,10 @@ class Text_class extends Base_tools_class {
 		var fonts = this.get_external_fonts();
 		var head = document.getElementsByTagName('head')[0];
 		for(var i in fonts) {
+			
+			//https://fonts.googleapis.com/css?family=Overpass:400,400i,700,700i
 			var font_family = fonts[i].replace(/[^a-zA-Z0-9 ]/g, '').replace(/ +/g, '+');
-			var font_url = 'https://fonts.googleapis.com/css?family=' + font_family;
+			var font_url = 'https://fonts.googleapis.com/css?family=' + font_family + ":400,400i,700,700i";
 
 			var link  = document.createElement('link');
 			link.rel = 'stylesheet';
