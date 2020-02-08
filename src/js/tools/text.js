@@ -132,8 +132,9 @@ class Text_class extends Base_tools_class {
 				{name: "italic", title: "Italic:", value: false},
 				{name: "align", title: "Align:", value: 'Left', values: ["Left", "Center", "Right"], type: 'select' },
 				{name: "stroke", title: "Stroke:", value: false},
+				{name: "letter_spacing", title: "Letter spacing:", value: '1px', values: ["-5px", "-4px", "-3px","-2px","-1px","0px","1px", "2px", "3px","4px","5px"], type: 'select' },
 				{name: "stroke_size", title: "Stroke size:", value: 1},
-				{name: "letter_spacing", title: "Letter spacing:", value: 1},
+				
 			],
 			on_load: function (params) {
 				config.layer.params = params;
@@ -144,6 +145,7 @@ class Text_class extends Base_tools_class {
 				button.className = 'button trns';
 				document.querySelector('#popup .buttons').appendChild(button);
 				button.addEventListener('click', function (e) {
+					
 					config.need_render = true;
 				});
 			},
@@ -190,6 +192,7 @@ class Text_class extends Base_tools_class {
 		}
 		var text = params.text;
 		var size = params.size;
+		//Hackear aca line_height
 		var line_height = size;
 		
 		if(text == undefined){

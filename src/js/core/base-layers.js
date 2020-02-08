@@ -124,7 +124,7 @@ class Base_layers_class {
 		}
 
 		if (config.need_render == true) {
-
+			
 			if (this.last_zoom != config.ZOOM) {
 				//change zoom
 				zoomView.scaleAt(
@@ -151,6 +151,7 @@ class Base_layers_class {
 
 			//render main canvas
 			for (var i = layers_sorted.length - 1; i >= 0; i--) {
+				
 				var value = layers_sorted[i];
 				this.ctx.globalAlpha = value.opacity / 100;
 				this.ctx.globalCompositeOperation = value.composition;
@@ -218,6 +219,21 @@ class Base_layers_class {
 	 * @param {object} object
 	 */
 	render_object(ctx, object) {
+		
+		//console.log("render object:");
+		//console.log(object);
+		//console.log(object.type);
+		//console.log(object.params);
+		//console.log(object.params["letter_spacing"]);
+		
+		if(object.type =="text"){
+			//ctx.letterSpacing = object.params["letter_spacing"];
+			console.log("lineHeight:");
+			console.log(this.canvas.style.lineHeight);
+			this.canvas.style.letterSpacing = object.params["letter_spacing"];
+			this.canvas.style.lineHeight = object.params["letter_spacing"];
+		}
+		
 		if (object.visible == false || object.type == null)
 			return;
 
@@ -270,7 +286,12 @@ class Base_layers_class {
 			//call render function from other module
 			var render_class = object.render_function[0];
 			var render_function = object.render_function[1];
-
+			
+			console.log("render_class:");
+			console.log(render_class);
+			
+			console.log("render_function:")
+			console.log(render_function);
 			this.Base_gui.GUI_tools.tools_modules[render_class][render_function](ctx, object);
 		}
 		ctx.filter = 'none';

@@ -71,7 +71,19 @@ var template = `
 
 		<div class="row">
 			<span class="trn label">Letter spacing:</span>
-			<input type="number" min="0" id="detail_param_letter_spacing" />
+			<select id="detail_param_letter_spacing">
+				<option value="-5px">-5px</option>
+				<option value="-4px">-4px</option>
+				<option value="-3px">-3px</option>
+				<option value="-2px">-2px</option>
+				<option value="-1px">-1px</option>
+				<option value="0px">0px</option>
+				<option value="1px">1px</option>
+				<option value="2px">2px</option>
+				<option value="3px">3px</option>
+				<option value="4px">4px</option>
+				<option value="5px">5px</option>
+			</select>
 		</div>
 
 	<div>
@@ -119,6 +131,7 @@ class GUI_details_class {
 		this.render_general_param('stroke_size', events);
 		this.render_general_select_param('align', events);
 		this.render_general_select_param('family', events);
+		this.render_general_select_param('letter_spacing', events);
 	}
 
 	render_general(key, events) {
@@ -214,7 +227,6 @@ class GUI_details_class {
 				var value = parseInt(this.value);
 				config.layer.params[key] = value;
 				config.need_render = true;
-				console.log("entro en change text");
 			});
 			document.getElementById('detail_param_' + key).addEventListener('click', function (e) {
 				if (typeof config.layer.params[key] != 'boolean')
@@ -222,14 +234,14 @@ class GUI_details_class {
 				this.classList.toggle('active');
 				config.layer.params[key] = !config.layer.params[key];
 				config.need_render = true;
-				console.log("entro en change text 2");
 			});
 		}
 	}
 	
 	render_general_select_param(key, events){
 		var layer = config.layer;
-
+		
+		//Si no al encuentra en el JSON la deshabilita si la encuentra la carga
 		if (layer != undefined) {
 			var target = document.getElementById('detail_param_' + key);
 			
@@ -249,9 +261,16 @@ class GUI_details_class {
 		if (events) {
 			//events
 			document.getElementById('detail_param_' + key).addEventListener('change', function (e) {
+				
 				var value = this.value;
 				config.layer.params[key] = value;
 				config.need_render = true;
+				
+				console.log("Debug render_general_select_param:");
+				console.log("value: "+value);
+				console.log("key: "+key);
+				console.log(config.layer);
+				
 			});
 		}
 	}
@@ -316,6 +335,7 @@ class GUI_details_class {
 	 * item: text
 	 */
 	render_text(events) {
+		
 		var _this = this;
 		var layer = config.layer;
 

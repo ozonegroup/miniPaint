@@ -116,6 +116,48 @@ Agregar esto al archivo .conf
         Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
 </IfModule>
 
+#Agregando propiedad a Text
+
+1. Se agrega la propiedad a settings en: /src/js/tools/text.js
+		//ask for text
+		var settings = {
+			{name: "letter_spacing", title: "Letter spacing:", value: '1px', values: ["1px", "2px", "3px","4px","5px"], type: 'select' },
+			
+2. Editar el atributo var template en: /src/js/core/gui/gui-details.js
+Ejemplo:
+		<div class="row">
+			<span class="trn label">Letter spacing:</span>
+			<select id="detail_param_letter_spacing">
+				<option value="-5px">-5px</option>
+				<option value="-4px">-4px</option>
+				<option value="-3px">-3px</option>
+				<option value="-2px">-2px</option>
+				<option value="-1px">-1px</option>
+				<option value="0px">0px</option>
+				<option value="1px">1px</option>
+				<option value="2px">2px</option>
+				<option value="3px">3px</option>
+				<option value="4px">4px</option>
+				<option value="5px">5px</option>
+			</select>
+		</div>
+
+3. Despues cargamos el evento en render_details en : src/js/core/gui/gui-details
+this.render_general_select_param('letter_spacing', events);
+Esto activa la funcion render_general_select_param es responsable de cargar y editar el json
+
+4. Despues se activa need_render y este activa la clase render_object en render_object en /src/js/core/base-layers.js
+Esta clase es la reponsable de dibujar en el canva object
+ * Layers class - manages layers. Each layer is object with various types. Keys:
+ 
+En el metodo render_object se hackea dependiendo del type ejemplo:
+
+if(object.type =="text"){
+	//ctx.letterSpacing = object.params["letter_spacing"];
+	this.canvas.style.letterSpacing = object.params["letter_spacing"];
+}
+
+
 
 
 
