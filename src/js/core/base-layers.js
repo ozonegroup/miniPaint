@@ -226,12 +226,9 @@ class Base_layers_class {
 		//console.log(object.params);
 		//console.log(object.params["letter_spacing"]);
 		
+		//letterSpacing Hack
 		if(object.type =="text"){
-			//ctx.letterSpacing = object.params["letter_spacing"];
-			console.log("lineHeight:");
-			console.log(this.canvas.style.lineHeight);
 			this.canvas.style.letterSpacing = object.params["letter_spacing"];
-			this.canvas.style.lineHeight = object.params["letter_spacing"];
 		}
 		
 		if (object.visible == false || object.type == null)
@@ -286,12 +283,6 @@ class Base_layers_class {
 			//call render function from other module
 			var render_class = object.render_function[0];
 			var render_function = object.render_function[1];
-			
-			console.log("render_class:");
-			console.log(render_class);
-			
-			console.log("render_function:")
-			console.log(render_function);
 			this.Base_gui.GUI_tools.tools_modules[render_class][render_function](ctx, object);
 		}
 		ctx.filter = 'none';

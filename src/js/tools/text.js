@@ -133,6 +133,7 @@ class Text_class extends Base_tools_class {
 				{name: "align", title: "Align:", value: 'Left', values: ["Left", "Center", "Right"], type: 'select' },
 				{name: "stroke", title: "Stroke:", value: false},
 				{name: "letter_spacing", title: "Letter spacing:", value: '1px', values: ["-5px", "-4px", "-3px","-2px","-1px","0px","1px", "2px", "3px","4px","5px"], type: 'select' },
+				{name: "line_height", title: "Line height:", value: 40},
 				{name: "stroke_size", title: "Stroke size:", value: 1},
 				
 			],
@@ -192,8 +193,11 @@ class Text_class extends Base_tools_class {
 		}
 		var text = params.text;
 		var size = params.size;
+		console.log("line_height:");
+		console.log(params.line_height);
 		//Hackear aca line_height
-		var line_height = size;
+		var line_height = params.line_height;
+		
 		
 		if(text == undefined){
 			//not defined yet

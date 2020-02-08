@@ -86,6 +86,11 @@ var template = `
 			</select>
 		</div>
 
+		<div class="row">
+			<span class="trn label">Line height:</span>
+			<input type="number" min="1" id="detail_param_line_height" />
+		</div>
+
 	<div>
 `;
 
@@ -132,6 +137,7 @@ class GUI_details_class {
 		this.render_general_select_param('align', events);
 		this.render_general_select_param('family', events);
 		this.render_general_select_param('letter_spacing', events);
+		this.render_general_param('line_height', events);
 	}
 
 	render_general(key, events) {
@@ -223,6 +229,8 @@ class GUI_details_class {
 
 		if (events) {
 			//events
+			console.log("events render_general_param");
+			
 			document.getElementById('detail_param_' + key).addEventListener('change', function (e) {
 				var value = parseInt(this.value);
 				config.layer.params[key] = value;
