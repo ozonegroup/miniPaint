@@ -68,6 +68,12 @@ var template = `
 			<span class="trn label">Stroke:</span>
 			<input type="number" min="0" id="detail_param_stroke_size" />
 		</div>
+
+		<div class="row">
+			<span class="trn label">Letter spacing:</span>
+			<input type="number" min="0" id="detail_param_letter_spacing" />
+		</div>
+
 	<div>
 `;
 
@@ -208,6 +214,7 @@ class GUI_details_class {
 				var value = parseInt(this.value);
 				config.layer.params[key] = value;
 				config.need_render = true;
+				console.log("entro en change text");
 			});
 			document.getElementById('detail_param_' + key).addEventListener('click', function (e) {
 				if (typeof config.layer.params[key] != 'boolean')
@@ -215,6 +222,7 @@ class GUI_details_class {
 				this.classList.toggle('active');
 				config.layer.params[key] = !config.layer.params[key];
 				config.need_render = true;
+				console.log("entro en change text 2");
 			});
 		}
 	}

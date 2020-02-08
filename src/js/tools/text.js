@@ -133,6 +133,7 @@ class Text_class extends Base_tools_class {
 				{name: "align", title: "Align:", value: 'Left', values: ["Left", "Center", "Right"], type: 'select' },
 				{name: "stroke", title: "Stroke:", value: false},
 				{name: "stroke_size", title: "Stroke size:", value: 1},
+				{name: "letter_spacing", title: "Letter spacing:", value: 1},
 			],
 			on_load: function (params) {
 				config.layer.params = params;
