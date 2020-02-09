@@ -441,7 +441,9 @@ class File_save_class {
 			//console.log("guardar JPG")
 		}
 		else if (type == 'STUDIO') {
+			//CODIGO DE OZONE 
 			console.log("Sending to My Designs");
+			console.log(fname);
 			
 			var image = new Image();
 			image.src = canvas.toDataURL("image/png");		
@@ -456,6 +458,7 @@ class File_save_class {
  	 	       user_id: url_params.user_id,
 			   thumbnail_file: image.src,
 			   json_file: json_file,
+			   title: fname
  	 	     }
  	 	   });
 			

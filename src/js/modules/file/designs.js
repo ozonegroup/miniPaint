@@ -86,8 +86,8 @@ class File_designs_media_class {
 					type: 'GET',
 					data: {user_id: url_params.user_id},
 					success : function(data) {
+						var designs = data;
 						
-						var designs = data["designs"];
 						var html ="";
 						for (var item in designs) {
 							//console.log(designs[item].thumbnail_file);

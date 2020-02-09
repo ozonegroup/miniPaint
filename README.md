@@ -80,8 +80,6 @@ El metodo de inicializacion es el ultimo /file/{archivo_de_clase}/{metodo_de_ini
 Estamos usando la siguiente logica de Laravel 
 https://laravel.com/docs/5.8/filesystem
 
-php artisan storage:link
-
 
 #VAriables de Sistema
 Archivo: /.env
@@ -116,7 +114,15 @@ Agregar esto al archivo .conf
         Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
 </IfModule>
 
-#Agregando propiedad a Text
+En el storage app se debe correr el siguiente comando para activar la logica del storage:
+php artisan storage:link 
+
+La accion de guardar se encuentra en el archivo save.js
+
+else if (type == 'STUDIO') {
+//CODIGO DE OZONE 
+
+#Agregando propiedad letter spacing a Text
 
 1. Se agrega la propiedad a settings en: /src/js/tools/text.js
 		//ask for text
@@ -156,6 +162,8 @@ if(object.type =="text"){
 	//ctx.letterSpacing = object.params["letter_spacing"];
 	this.canvas.style.letterSpacing = object.params["letter_spacing"];
 }
+
+5. En la clase text.js hay un metodo que se llama render desde que es clave para otras integraciones 
 
 
 
