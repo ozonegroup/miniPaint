@@ -455,10 +455,10 @@ class File_save_class {
  	 	     method: 'post',
  	 	     url: process.env.STORAGE_APP_URL+'/save_to_my_designs',
  	 	     data: {
- 	 	       user_id: url_params.user_id,
+ 	 	       token: url_params.token,
 			   thumbnail_file: image.src,
 			   json_file: json_file,
-			   title: fname
+			   title: fname,
  	 	     }
  	 	   });
 			

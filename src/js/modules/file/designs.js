@@ -78,21 +78,22 @@ class File_designs_media_class {
 				
 				console.log("testing variables");
 				console.log(process.env.STORAGE_APP_URL);
+			
 				var base_url = process.env.STORAGE_APP_URL+'/storage/templates/';
 				
 				$.ajax({
 					url: process.env.STORAGE_APP_URL+'/my_designs',
 					dataType: 'JSON',
 					type: 'GET',
-					data: {user_id: url_params.user_id},
+					data: {token: url_params.token},
 					success : function(data) {
-						var designs = data;
-						
+						var designs = data["designs"];
+						var user_id = data["user_id"];
 						var html ="";
 						for (var item in designs) {
 							//console.log(designs[item].thumbnail_file);
 							html+='<div class="item pointer">';
-							html+='<img class="template" width="150" class="displayBlock" alt="" src="'+base_url+url_params.user_id+'/'+designs[item].thumbnail_file+'" json-url="'+base_url+url_params.user_id+'/'+designs[item].json_file+'">';
+							html+='<img class="template" width="150" class="displayBlock" alt="" src="'+base_url+user_id+'/'+designs[item].thumbnail_file+'" json-url="'+base_url+user_id+'/'+designs[item].json_file+'">';
 							html+='</div>';
 						}
 						$(".flex-container").html(html);
@@ -100,7 +101,7 @@ class File_designs_media_class {
 						$(".template").click(function() {
 						  //alert( "Handler for .click() called." );
 						 // alert($(this).attr("json-url"));
-						  var relocate_url = "?image="+$(this).attr("json-url")+"&user_id="+url_params.user_id;
+						  var relocate_url = "?image="+$(this).attr("json-url")+"&token="+url_params.token;
 						  window.location.href="/"+relocate_url;
 						});
 					}		
